@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { addFilterMovies } from "../../redux/actions/actions";
+import { addFilterMovies, getMovieList } from "../../redux/actions/actions";
 import { connect } from "react-redux";
 
 import "./SearchBox.css";
-import axios from "axios";
-import { baseUrl } from "../../redux/constants";
 
 class SearchBox extends Component {
   state = {
@@ -15,18 +13,6 @@ class SearchBox extends Component {
   };
   searchBoxSubmitHandler = (e) => {
     e.preventDefault();
-  };
-
-  getMovieList = async () => {
-    const apiKey = "23dbb244";
-    const res = await axios.get(
-      baseUrl + `?s=${this.state.searchLine}&apikey=${apiKey}`
-    );
-    const data = res.data.Search;
-    if (!data) {
-      throw console.log("Error");
-    }
-    return data;
   };
 
   render() {
@@ -51,7 +37,7 @@ class SearchBox extends Component {
             type="submit"
             className="search-box__form-submit"
             onClick={() =>
-              this.getMovieList()
+              getMovieList(searchLine)
                 .then((res) => {
                   addFilterMovies(res);
                 })

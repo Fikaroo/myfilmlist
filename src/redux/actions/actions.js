@@ -1,3 +1,5 @@
+import axios from "axios";
+import { baseUrl } from "../constants";
 import {
   ADD_MOVIE_TO_LIST,
   REMOVE_MOVIE_TO_LIST,
@@ -22,5 +24,15 @@ export const removeMovie = (payload) => ({
 
 export const setLinkActive = (payload) => ({
   type: SET_LINKACTIVE,
-  payload
-})
+  payload,
+});
+
+export const getMovieList = async (searchLine) => {
+  const apiKey = "23dbb244";
+  const res = await axios.get(baseUrl + `?s=${searchLine}&apikey=${apiKey}`);
+  const data = res.data.Search;
+  if (!data) {
+    throw console.log("Error");
+  }
+  return data;
+};
