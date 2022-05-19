@@ -1,19 +1,43 @@
-import React, { Component } from 'react';
-import './MovieItem.css';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addMoive } from "../../redux/actions/actions";
+import "./MovieItem.css";
 class MovieItem extends Component {
-    render() {
-        const { title, year, poster } = this.props;
-        return (
-            <article className="movie-item">
-                <img className="movie-item__poster" src={poster} alt={title} />
-                <div className="movie-item__info">
-                    <h3 className="movie-item__title">{title}&nbsp;({year})</h3>
-                    <button type="button" className="movie-item__add-button">Добавить в список</button>
-                </div>
-            </article>
-        );
+  render() {
+    const { imdbID, Title, Year, Poster, addMovie, disabled } = this.props;
+    return (
+      <article className="movie-item">
+        <img className="movie-item__poster" src={Poster} alt={Title} />
+        <div className="movie-item__info">
+          <h3 className="movie-item__title">
+            {Title}&nbsp;({Year})
+          </h3>
+          <button
+            type="button"
+            className="movie-item__add-button"
+            onClick={() => addMovie(imdbID)}
+            disabled={disabled}
+          >
+            Добавить в список
+          </button>
+        </div>
+      </article>
+    );
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addMovie: (id) => {
+      dispatch(addMoive(id));
+    },
+  };
+}
+
+const mapStateToProps = (state) => {
+    const {linkActive} = state;
+    return {
+        disabled : linkActive,
     }
 }
- 
-export default MovieItem;
+export default connect(mapStateToProps, mapDispatchToProps)(MovieItem);
