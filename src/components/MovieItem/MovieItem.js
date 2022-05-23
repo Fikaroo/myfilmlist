@@ -35,9 +35,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (state) => {
-    const {linkActive} = state;
-    return {
-        disabled : linkActive,
-    }
-}
+  const { linkActive } = state;
+  return {
+    disabled: linkActive,
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(MovieItem);

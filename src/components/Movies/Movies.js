@@ -11,8 +11,8 @@ class Movies extends Component {
         {movies.map((movie) => (
           <li className="movies__item" key={movie.imdbID}>
             <MovieItem
-              {...movie}
-              disabled={listMovies.find((item) => item.imdbID === movie.imdbID)}
+              {...movie}            disabled={listMovies.find((
+  item) => item.imdbID === movie.imdbID)}
             />
           </li>
         ))}
