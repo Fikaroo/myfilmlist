@@ -25,10 +25,10 @@ class ListPage extends Component {
       });
   }
   render() {
-    const { movies } = this.state;
+    const { movies, title } = this.state;
     return (
       <div className="list-page">
-        <h1 className="list-page__title">Мой список</h1>
+        <h1 className="list-page__title">{title}</h1>
         <ul>
           {movies.map((item) => {
             return (

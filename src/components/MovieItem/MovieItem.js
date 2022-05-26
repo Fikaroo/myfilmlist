@@ -4,7 +4,8 @@ import { addMoive } from "../../redux/actions/actions";
 import "./MovieItem.css";
 class MovieItem extends Component {
   render() {
-    const { imdbID, Title, Year, Poster, addMovie, disabled } = this.props;
+    const { imdbID, Title, Year, Poster, addMovie, disabled, linkActive } =
+      this.props;
     return (
       <article className="movie-item">
         <img className="movie-item__poster" src={Poster} alt={Title} />
@@ -16,7 +17,7 @@ class MovieItem extends Component {
             type="button"
             className="movie-item__add-button"
             onClick={() => addMovie(imdbID)}
-            disabled={disabled}
+            disabled={disabled || linkActive}
           >
             Добавить в список
           </button>
@@ -37,7 +38,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = (state) => {
   const { linkActive } = state;
   return {
-    disabled: linkActive,
+    linkActive: linkActive,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MovieItem);
